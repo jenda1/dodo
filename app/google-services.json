@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "369450902107",
+    "project_id": "dodo-8e10b",
+    "storage_bucket": "dodo-8e10b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:369450902107:android:98c0c9763aa2c47fba157e",
+        "android_client_info": {
+          "package_name": "name.lana.dodo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "369450902107-ve6q3rr5mv6jo0an77cbub1m0imcscl6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "name.lana.dodo",
+            "certificate_hash": "0f7a706a46bcafce7451488e41a649f71d1009a5"
+          }
+        },
+        {
+          "client_id": "369450902107-9tmepslvkusg0ihrd5o2ie17vl0gk6gv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAB3JfESpv2RM6PFg-3AN1PzJbqlOjkC4M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "369450902107-9tmepslvkusg0ihrd5o2ie17vl0gk6gv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

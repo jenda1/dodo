@@ -2,4 +2,12 @@
     <string name="app_name">Dodo</string>
     <string name="title_activity_video_call">Video</string>
     <string name="welcome">Vše je v pořádku :-)</string>
+    <string name="app_mode_key">app_mode</string>
+
+    <!-- Preference Titles -->
+    <string name="settings_header">Nastavení</string>
+    <string name="settings_mode_title">Master mód</string>
+    <string name="settings_key_title">Slave klíč</string>
+    <string name="title_activity_main_settings">MainSettingsActivity</string>
+    <string name="action_settings">Nastavení</string>
 </resources>

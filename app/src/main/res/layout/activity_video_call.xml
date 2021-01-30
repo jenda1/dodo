@@ -4,8 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/fullscreenBackgroundColor"
-    android:theme="@style/ThemeOverlay.JitsiSDKTest.FullscreenContainer"
     tools:context=".VideoCallActivity">
+
+    <!-- android:theme="@style/ThemeOverlay.JitsiSDKTest.FullscreenContainer" -->
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
@@ -27,9 +28,10 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
+        <!-- style="@style/Widget.AppTheme.ButtonBar.Fullscreen" -->
+
         <LinearLayout
             android:id="@+id/fullscreen_content_controls"
-            style="@style/Widget.AppTheme.ButtonBar.Fullscreen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
