@@ -12,11 +12,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -34,13 +40,13 @@ public class MainActivity extends AppCompatActivity {
                     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
                         Log.v(TAG, "change " + key);
 
-                        setContentView(prefs.getBoolean("mode", false) ? R.layout.activity_main_master : R.layout.activity_main_slave);
+                        if (key.equals("mode"))
+                            updateMode(prefs);
                     }
                 }
         );
 
-
-        setContentView(prefs.getBoolean("mode", false) ? R.layout.activity_main_master : R.layout.activity_main_slave);
+        updateMode(prefs);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED ||
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
@@ -48,6 +54,37 @@ public class MainActivity extends AppCompatActivity {
                     new String[]{Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS},
                     0);
         }
+    }
+
+    public void updateMode(SharedPreferences prefs) {
+        boolean isMaster = prefs.getBoolean("mode", false);
+        if (isMaster) {
+            setContentView(R.layout.activity_main_master);
+        } else {
+            setContentView(R.layout.activity_main_slave);
+
+
+            FirebaseMessaging.getInstance().getToken()
+                    .addOnCompleteListener(new OnCompleteListener<String>() {
+                        @Override
+                        public void onComplete(@NonNull Task<String> task) {
+                            if (!task.isSuccessful()) {
+                                Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                                return;
+                            }
+
+                            // Get new FCM registration token
+                            String token = task.getResult();
+
+                            // Log and toast
+                            // String msg = getString(R.string.msg_token_fmt, token);
+                            Log.d(TAG, token);
+                            Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+        }
+
     }
 
     @Override
