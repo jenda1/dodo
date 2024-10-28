@@ -8,10 +8,16 @@
             android:key="mode"
             android:title="@string/settings_mode_title" />
         <EditTextPreference
-            android:key="slave_key"
+            android:key="room_id"
+            android:selectAllOnFocus="true"
+            android:singleLine="false"
+            android:title="@string/settings_roomID" />
+        <EditTextPreference
+            android:defaultValue="Default value"
+            android:key="friendKey"
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            android:title="@string/settings_key_title" />
+            android:title="@string/settings_friends" />
     </PreferenceCategory>
 
 </PreferenceScreen>

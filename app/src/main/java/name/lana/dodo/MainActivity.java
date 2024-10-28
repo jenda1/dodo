@@ -33,6 +33,8 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.UnrecoverableEntryException;
 import java.security.cert.CertificateException;
+import java.util.Base64;
+
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -71,40 +73,7 @@ public class MainActivity extends AppCompatActivity {
         Log.v(TAG, String.valueOf(publicKey));
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.v(TAG, "onCreate");
-
-        try {
-            initKey();
-        } catch (Exception e) {
-            Log.e(TAG, "key initialization failed", e);
-        }
-
-        SharedPreferences prefs =
-                PreferenceManager.getDefaultSharedPreferences(this);
-
-        prefs.registerOnSharedPreferenceChangeListener(
-                new SharedPreferences.OnSharedPreferenceChangeListener() {
-                    public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-                        if (key.equals("mode"))
-                            updateMode(prefs);
-                    }
-                }
-        );
-
-        updateMode(prefs);
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED ||
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS},
-                    0);
-        }
-    }
-
-    public void updateMode(SharedPreferences prefs) {
+    private void updateMode(SharedPreferences prefs) {
         boolean isMaster = prefs.getBoolean("mode", false);
 
         Log.v(TAG, "mode update to: " + (isMaster?"MASTER":"SLAVE"));
@@ -129,6 +98,34 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
                         }
                     });
+        }
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.v(TAG, "onCreate");
+
+        try {
+            initKey();
+        } catch (Exception e) {
+            Log.e(TAG, "key initialization failed", e);
+        }
+
+        /* preferences */
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor e = prefs.edit();
+        e.putString("publicKey", Base64.getEncoder().encodeToString(publicKey.getEncoded()));
+        e.apply();
+
+        updateMode(prefs);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS},
+                    0);
         }
     }
 

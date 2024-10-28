@@ -7,8 +7,11 @@
     <!-- Preference Titles -->
     <string name="settings_header">Nastavení</string>
     <string name="settings_mode_title">Master mód</string>
-    <string name="settings_key_title">Slave klíč</string>
     <string name="title_activity_main_settings">MainSettingsActivity</string>
     <string name="action_settings">Nastavení</string>
+    <string name="settings_roomID">Jméno místnosti</string>
+
     <string name="default_notification_channel_id">dodo-123</string>
+    <string name="message_key_alias">messageKey</string>
+    <string name="settings_friends">Přítelé</string>
 </resources>
